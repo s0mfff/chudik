@@ -57,6 +57,8 @@ let lastMode = null;
 let scrollTicking = false;
 let touchStartX = 0;
 let touchStartY = 0;
+let isSwiping = false;
+let isTransitioning = false;
 
 const scrollTrack = document.getElementById('scrollTrack');
 const counter = document.getElementById('counter');
@@ -409,6 +411,19 @@ function parkDetachedCharacterVideos() {
   });
 }
 
+function syncActiveCharacterVideo() {
+  const activeVideoSrc = isMobileMode() ? mobileSlides[current]?.video?.src : null;
+
+  characterVideos.forEach((video, src) => {
+    if (src === activeVideoSrc && video.isConnected) {
+      const play = video.play();
+      if (play && typeof play.catch === 'function') play.catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+}
+
 function desktopSlideMarkup(slide, index) {
   const video = slide.video
     ? `<div class="video-slot slide-video-overlay is-active scroll-video" data-video-src="${slide.video.src}" data-video-mode="desktop" aria-hidden="true"></div>`
@@ -491,6 +506,7 @@ function buildScrollFeed(preserveSource = null) {
   hydrateVideoSlots();
   buildMenu();
   setupVideoObserver();
+  syncActiveCharacterVideo();
   updateUi(false);
 }
 
@@ -501,6 +517,7 @@ function renderMobileCurrent() {
   scrollTrack.innerHTML = mobileSlideMarkup(deck[current], current, deck);
   hydrateVideoSlots();
   setupVideoObserver();
+  syncActiveCharacterVideo();
   updateUi(true);
 }
 
@@ -510,6 +527,7 @@ function getSections() {
 
 function setupVideoObserver() {
   videoObserver?.disconnect();
+  if (isMobileMode()) return;
   const videos = Array.from(scrollTrack.querySelectorAll('video.scroll-video'));
   if (!videos.length) return;
 
@@ -607,13 +625,16 @@ function goTo(index, behavior = 'smooth') {
   const nextIndex = Math.max(0, Math.min(deck.length - 1, index));
 
   if (isMobileMode()) {
+    if (isTransitioning) return;
     const renderedIndex = Number(scrollTrack.querySelector('.mobile-scroll-item')?.dataset.index ?? -1);
     if (nextIndex === current && renderedIndex === current) {
       updateUi(true);
       return;
     }
+    isTransitioning = true;
     current = nextIndex;
     renderMobileCurrent();
+    setTimeout(() => { isTransitioning = false; }, 180);
     return;
   }
 
@@ -624,8 +645,12 @@ function goTo(index, behavior = 'smooth') {
   section.scrollIntoView({ behavior, block: 'start' });
 }
 
-function next() { goTo(current + 1); }
-function prev() { goTo(current - 1); }
+function navigateBy(delta) {
+  goTo(current + delta);
+}
+
+function next() { navigateBy(1); }
+function prev() { navigateBy(-1); }
 
 function buildMenu() {
   const deck = activeSlides();
@@ -662,22 +687,28 @@ menu?.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
 
 // Original mobile presentation gesture: horizontal swipe changes one frame at a time.
 window.addEventListener('touchstart', (e) => {
-  if (!isMobileMode() || document.body.classList.contains('is-loading') || !intro.classList.contains('is-hidden') || menu.classList.contains('is-open')) return;
+  if (!isMobileMode() || isTransitioning || document.body.classList.contains('is-loading') || !intro.classList.contains('is-hidden') || menu.classList.contains('is-open')) return;
   const touch = e.changedTouches?.[0];
   if (!touch) return;
+  isSwiping = true;
   touchStartX = touch.screenX;
   touchStartY = touch.screenY;
 }, { passive: true });
 
 window.addEventListener('touchend', (e) => {
-  if (!isMobileMode() || document.body.classList.contains('is-loading') || !intro.classList.contains('is-hidden') || menu.classList.contains('is-open')) return;
+  if (!isMobileMode() || !isSwiping || document.body.classList.contains('is-loading') || !intro.classList.contains('is-hidden') || menu.classList.contains('is-open')) return;
   const touch = e.changedTouches?.[0];
+  isSwiping = false;
   if (!touch) return;
   const dx = touch.screenX - touchStartX;
   const dy = touch.screenY - touchStartY;
   if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.15) {
-    dx < 0 ? next() : prev();
+    navigateBy(dx < 0 ? 1 : -1);
   }
+}, { passive: true });
+
+window.addEventListener('touchcancel', () => {
+  isSwiping = false;
 }, { passive: true });
 
 startBtn?.addEventListener('click', enterDeck);
