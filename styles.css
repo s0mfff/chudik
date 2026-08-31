@@ -652,7 +652,7 @@ body.clean-mode .presentation-hint {
   isolation: isolate;
 }
 
-.intro-scroll-image {
+.intro-scroll-animation {
   display: block;
   width: min(66px, 17vw);
   height: auto;
@@ -660,7 +660,6 @@ body.clean-mode .presentation-hint {
   border-radius: 0;
   object-fit: contain;
   box-shadow: none;
-  mix-blend-mode: multiply;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -678,7 +677,7 @@ body.clean-mode .presentation-hint {
     display: grid;
   }
 
-  .intro-scroll-image {
+  .intro-scroll-animation {
     width: min(105px, 28vw);
     max-width: 105px;
   }

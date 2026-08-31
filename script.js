@@ -188,7 +188,7 @@ function collectPreloadAssets() {
   });
 
   assets.add('assets/audio/soundtrack.mp3');
-  assets.add('assets/ui/scroll-hint.svg');
+  assets.add('assets/ui/scroll-hint.apng');
 
   return [...assets];
 }
