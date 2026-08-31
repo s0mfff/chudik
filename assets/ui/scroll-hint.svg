@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 126" role="img" aria-label="Листай">
+  <g fill="none" stroke="#14345a" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M29 60 86 20l-8 32 62-36-12 31 55-30" stroke-width="17"/>
+    <path d="M28 60 86 104l-8-32 62 36-12-31 55 30" stroke-width="17"/>
+    <path d="M17 70c11-2 23-7 32-15M18 83c14-1 29-6 43-16M74 15c17-4 36-6 54-5M73 111c18 4 36 6 55 5" stroke-width="4"/>
+    <path d="M219 32c0-10 8-18 18-18s18 8 18 18v26" stroke-width="8"/>
+    <path d="M235 57V34c0-5 4-9 9-9s9 4 9 9v31" stroke-width="8"/>
+    <path d="M253 66V45c0-5 4-9 9-9s9 4 9 9v31" stroke-width="8"/>
+    <path d="M219 62V37c0-5-4-9-9-9s-9 4-9 9v45c0 15 10 28 25 32l22 6c13 4 27-4 31-18l4-15" stroke-width="8"/>
+    <path d="M199 82 179 68c-5-4-12-3-15 2s-2 12 3 16l30 24" stroke-width="8"/>
+    <path d="M216 18c4-11 14-18 27-18 14 0 27 9 31 22M207 8c7-9 19-15 33-15M266 25c8 5 14 13 16 23" stroke-width="4"/>
+    <path d="M184 49c8 2 15 7 20 14M192 39c9 3 17 9 23 17" stroke-width="4"/>
+  </g>
+</svg>

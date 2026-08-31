@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4ecdf" />
+  <meta name="description" content="Инвестиционная web-презентация проекта ЧУДИК / Original IP Universe" />
+  <link rel="preload" as="image" href="assets/slides/slide-01.webp" />
+  <link rel="preload" as="image" href="assets/logo-chudik-fixed-d.png" />
+  <link rel="preload" as="image" href="assets/chudik-ghost.png" />
+  <link rel="preload" as="image" href="assets/ui/scroll-hint.svg" />
+  <title>ЧУДИК — Original IP Universe</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main id="deck" class="deck" aria-live="polite">
+    <section id="stage" class="stage" aria-label="Web-deck презентация Чудик">
+      <div class="brand-pill" aria-hidden="true">
+        <img class="brand-logo" src="assets/logo-chudik-fixed-d.png" alt="" draggable="false" />
+        <small>ORIGINAL IP UNIVERSE</small>
+      </div>
+
+      <div class="top-tools" aria-label="Инструменты показа">
+        <button id="cleanBtn" class="sound-pill clean-toggle" type="button" aria-label="Скрыть или показать интерфейс" title="Скрыть интерфейс для чистого показа">◐</button>
+        <div class="music-control" aria-label="Управление музыкой">
+          <button id="musicBtn" class="sound-pill music-toggle" type="button" aria-label="Включить или выключить музыку" title="Музыка">♫</button>
+          <input id="volumeRange" class="volume-range" type="range" min="0" max="0.6" step="0.01" value="0.16" aria-label="Громкость музыки" />
+        </div>
+      </div>
+      <audio id="bgMusic" src="assets/audio/soundtrack.mp3" preload="none" loop></audio>
+
+      <div id="scrollTrack" class="scroll-track" aria-label="Скролл-лента презентации"></div>
+
+      <div class="deck-footer" aria-hidden="false">
+        <button id="prevBtn" class="nav-btn" type="button" aria-label="Предыдущий слайд">↑</button>
+        <div class="progress-wrap" aria-hidden="true">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div id="counter" class="counter">01 / 15</div>
+        <button id="nextBtn" class="nav-btn" type="button" aria-label="Следующий слайд">↓</button>
+      </div>
+
+      <div class="top-actions">
+        <button id="menuBtn" class="text-btn" type="button">Разделы</button>
+        <button id="fullBtn" class="text-btn desktop-only" type="button">Во весь экран</button>
+      </div>
+
+      <div id="presentationHint" class="presentation-hint" aria-hidden="true">
+        ↑ / ↓ — слайды · F — fullscreen · H — чистый режим
+      </div>
+    </section>
+  </main>
+
+  <aside id="menu" class="menu" aria-hidden="true">
+    <div class="menu-panel">
+      <div class="menu-head">
+        <div>
+          <strong>ЧУДИК</strong>
+          <span>Original IP Universe</span>
+        </div>
+        <button id="closeMenuBtn" class="icon-btn" type="button" aria-label="Закрыть меню">×</button>
+      </div>
+      <nav id="menuList" class="menu-list" aria-label="Навигация по слайдам"></nav>
+    </div>
+  </aside>
+
+  <section id="intro" class="intro" aria-label="Стартовый экран">
+    <div class="intro-card">
+      <img class="intro-logo" src="assets/logo-chudik-fixed-d.png" alt="ЧУДИК" draggable="false" />
+      <div class="intro-subtitle">ORIGINAL IP UNIVERSE</div>
+      <button id="startBtn" class="start-btn" type="button">Погрузиться во вселенную</button>
+      <div class="intro-scroll-hint" aria-hidden="true">
+        <img class="intro-scroll-image" src="assets/ui/scroll-hint.svg" alt="" draggable="false" />
+        <div class="intro-scroll-label">ЛИСТАЙ</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projectLoader" class="project-loader" aria-hidden="true" aria-live="polite">
+    <div class="project-loader__content">
+      <img class="project-loader__chudik" src="assets/chudik-ghost.png" alt="" draggable="false" />
+      <div class="project-loader__label">Загрузка вселенной</div>
+      <div class="project-loader__percent"><span id="projectLoaderPercent">0</span>%</div>
+      <div class="project-loader__progress" aria-hidden="true">
+        <div id="projectLoaderBar" class="project-loader__progress-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <noscript>Для просмотра web-deck включите JavaScript: он нужен для навигации, меню и мобильной версии.</noscript>
+</body>
+</html>
