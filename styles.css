@@ -461,7 +461,7 @@ body.clean-mode .music-control {
   backdrop-filter: blur(12px);
 }
 
-.text-btn:focus-visible, .nav-btn:focus-visible, .icon-btn:focus-visible, .start-btn:focus-visible, .sound-pill:focus-visible {
+.text-btn:focus-visible, .nav-btn:focus-visible, .icon-btn:focus-visible, .start-btn:focus-visible, .sound-pill:focus-visible, .project-loader__sound-button:focus-visible, .project-loader__volume-range:focus-visible {
   outline: 2px solid rgba(20,52,90,.58);
   outline-offset: 3px;
 }
@@ -761,6 +761,43 @@ body.clean-mode .presentation-hint {
   border-radius: inherit;
   background: var(--ink);
   transition: width .22s linear;
+}
+
+.project-loader__sound {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  padding: 7px 10px 7px 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.42);
+  border: 1px solid rgba(255,255,255,.62);
+  box-shadow: 0 12px 32px rgba(20,52,90,.08);
+  backdrop-filter: blur(12px);
+}
+
+.project-loader__sound-button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.74);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(20,52,90,.08);
+}
+
+.project-loader__sound-button.is-muted {
+  opacity: .58;
+}
+
+.project-loader__volume-range {
+  width: min(128px, 34vw);
+  accent-color: var(--ink);
+  cursor: pointer;
 }
 
 @keyframes chudikLoading {

@@ -78,6 +78,8 @@ const presentationHint = document.getElementById('presentationHint');
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const volumeRange = document.getElementById('volumeRange');
+const loaderMusicBtn = document.getElementById('loaderMusicBtn');
+const loaderVolumeRange = document.getElementById('loaderVolumeRange');
 
 const mobileQuery = window.matchMedia('(max-width: 760px)');
 let musicAvailable = true;
@@ -102,16 +104,20 @@ function escapeHtml(str = '') {
 }
 
 function setInitialMusicVolume() {
-  if (!bgMusic || !volumeRange) return;
-  bgMusic.volume = Number(volumeRange.value || 0.16);
+  if (!bgMusic) return;
+  const value = volumeRange?.value || loaderVolumeRange?.value || 0.16;
+  bgMusic.volume = Number(value);
 }
 
 function updateMusicButton() {
-  if (!musicBtn || !bgMusic) return;
+  if (!bgMusic) return;
   const isMuted = bgMusic.muted || bgMusic.paused || bgMusic.volume <= 0.001 || !musicAvailable;
-  musicBtn.classList.toggle('is-muted', isMuted);
-  musicBtn.textContent = isMuted ? '♫' : '♪';
-  musicBtn.title = musicAvailable ? 'Музыка' : 'Добавьте assets/audio/soundtrack.mp3';
+  [musicBtn, loaderMusicBtn].forEach(btn => {
+    if (!btn) return;
+    btn.classList.toggle('is-muted', isMuted);
+    btn.textContent = isMuted ? '♫' : '♪';
+    btn.title = musicAvailable ? 'Музыка' : 'Добавьте assets/audio/soundtrack.mp3';
+  });
 }
 
 async function startMusic() {
@@ -132,17 +138,24 @@ function toggleMusic() {
   else { bgMusic.pause(); updateMusicButton(); }
 }
 
+function setMusicVolume(value) {
+  if (!bgMusic) return;
+  const nextVolume = Number(value || 0);
+  bgMusic.volume = nextVolume;
+  if (volumeRange && volumeRange.value !== String(value)) volumeRange.value = String(value);
+  if (loaderVolumeRange && loaderVolumeRange.value !== String(value)) loaderVolumeRange.value = String(value);
+  if (nextVolume > 0 && musicStarted && bgMusic.paused) startMusic();
+  updateMusicButton();
+}
+
 setInitialMusicVolume();
 bgMusic?.addEventListener('error', () => { musicAvailable = false; updateMusicButton(); });
 bgMusic?.addEventListener('play', updateMusicButton);
 bgMusic?.addEventListener('pause', updateMusicButton);
-volumeRange?.addEventListener('input', () => {
-  if (!bgMusic) return;
-  bgMusic.volume = Number(volumeRange.value || 0.16);
-  if (bgMusic.volume > 0 && musicStarted && bgMusic.paused) startMusic();
-  updateMusicButton();
-});
+volumeRange?.addEventListener('input', () => setMusicVolume(volumeRange.value));
+loaderVolumeRange?.addEventListener('input', () => setMusicVolume(loaderVolumeRange.value));
 musicBtn?.addEventListener('click', toggleMusic);
+loaderMusicBtn?.addEventListener('click', toggleMusic);
 updateMusicButton();
 
 function mobileCounterLabel(slide, index, deck) {
