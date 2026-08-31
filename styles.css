@@ -800,6 +800,23 @@ body.clean-mode .presentation-hint {
   cursor: pointer;
 }
 
+.video-warmup-shelf {
+  position: fixed;
+  left: -2px;
+  top: -2px;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-warmup-shelf video {
+  width: 1px;
+  height: 1px;
+}
+
 @keyframes chudikLoading {
   0% { transform: rotate(0deg) scale(1); }
   50% { transform: rotate(180deg) scale(1.025); }

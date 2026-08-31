@@ -3,11 +3,11 @@ const slides = [
   { title: 'Экосистема Чудика', kicker: '02 · ОТ ИСТОРИИ — К СИСТЕМЕ', image: 'assets/slides/slide-02.webp', hash: 'slide-02' },
   { title: 'Кто живёт в этой вселенной', kicker: '03 · ГЕРОИ', image: 'assets/slides/slide-03.webp', hash: 'slide-03' },
   { title: 'Соня', kicker: '04 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/slides/slide-04.webp', hash: 'slide-04',
-    video: { src: 'assets/video/sonya-loop.mp4', poster: 'assets/slides/slide-04.webp' } },
+    video: { src: 'assets/video/sonya-loop.mp4', poster: 'assets/video/posters/sonya.webp' } },
   { title: 'Чудик', kicker: '05 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/slides/slide-05.webp', hash: 'slide-05',
-    video: { src: 'assets/video/chudik-loop.mp4', poster: 'assets/slides/slide-05.webp' } },
+    video: { src: 'assets/video/chudik-loop.mp4', poster: 'assets/video/posters/chudik.webp' } },
   { title: 'Мама', kicker: '06 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/slides/slide-06.webp', hash: 'slide-06',
-    video: { src: 'assets/video/mama-loop.mp4', poster: 'assets/slides/slide-06.webp' } },
+    video: { src: 'assets/video/mama-loop.mp4', poster: 'assets/video/posters/mama.webp' } },
   { title: 'Все рождаются исследователями', kicker: '07 · МИССИЯ ПРОЕКТА', image: 'assets/slides/slide-07.webp', hash: 'slide-07' },
   { title: 'Еженедельный анимационный сериал', kicker: '08 · ФОРМАТ', image: 'assets/slides/slide-08.webp', hash: 'slide-08' },
   { title: 'Компактное ядро, AI как часть процесса', kicker: '09 · КОМАНДА', image: 'assets/slides/slide-09.webp', hash: 'slide-09' },
@@ -25,13 +25,13 @@ const mobileSlides = [
   { title: 'Экосистема Чудика', kicker: '02 · ОТ ИСТОРИИ — К СИСТЕМЕ', image: 'assets/mobile/mobile-02-right.webp', hash: 'slide-02b', counter: '02 · 2/2', part: '2/2', source: 2 },
   { title: 'Кто живёт в этой вселенной', kicker: '03 · ГЕРОИ', image: 'assets/mobile/mobile-03-left.webp', hash: 'slide-03a', counter: '03 · 1/1', part: '1/1', source: 3 },
   { title: 'Соня', kicker: '04 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/mobile/mobile-04-left.webp', hash: 'slide-04a', counter: '04 · 1/2', part: '1/2', source: 4,
-    video: { src: 'assets/video/sonya-loop.mp4', poster: 'assets/mobile/mobile-04-left.webp' } },
+    video: { src: 'assets/video/sonya-loop.mp4', poster: 'assets/video/posters/sonya.webp' } },
   { title: 'Соня', kicker: '04 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/mobile/mobile-04-right.webp', hash: 'slide-04b', counter: '04 · 2/2', part: '2/2', source: 4 },
   { title: 'Чудик', kicker: '05 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/mobile/mobile-05-left.webp', hash: 'slide-05a', counter: '05 · 1/2', part: '1/2', source: 5,
-    video: { src: 'assets/video/chudik-loop.mp4', poster: 'assets/mobile/mobile-05-left.webp' } },
+    video: { src: 'assets/video/chudik-loop.mp4', poster: 'assets/video/posters/chudik.webp' } },
   { title: 'Чудик', kicker: '05 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/mobile/mobile-05-right.webp', hash: 'slide-05b', counter: '05 · 2/2', part: '2/2', source: 5 },
   { title: 'Мама', kicker: '06 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/mobile/mobile-06-left.webp', hash: 'slide-06a', counter: '06 · 1/2', part: '1/2', source: 6,
-    video: { src: 'assets/video/mama-loop.mp4', poster: 'assets/mobile/mobile-06-left.webp' } },
+    video: { src: 'assets/video/mama-loop.mp4', poster: 'assets/video/posters/mama.webp' } },
   { title: 'Мама', kicker: '06 · КТО ЖИВЁТ В ЭТОЙ ВСЕЛЕННОЙ', image: 'assets/mobile/mobile-06-right.webp', hash: 'slide-06b', counter: '06 · 2/2', part: '2/2', source: 6 },
   { title: 'Все рождаются исследователями', kicker: '07 · МИССИЯ ПРОЕКТА', image: 'assets/mobile/mobile-07-right.webp', hash: 'slide-07b', counter: '07 · 1/1', part: '1/1', source: 7 },
   { title: 'Еженедельный анимационный сериал', kicker: '08 · ФОРМАТ', image: 'assets/mobile/mobile-08-left.webp', hash: 'slide-08a', counter: '08 · 1/2', part: '1/2', source: 8 },
@@ -74,6 +74,7 @@ const startBtn = document.getElementById('startBtn');
 const projectLoader = document.getElementById('projectLoader');
 const projectLoaderPercent = document.getElementById('projectLoaderPercent');
 const projectLoaderBar = document.getElementById('projectLoaderBar');
+const videoWarmupShelf = document.getElementById('videoWarmupShelf');
 const presentationHint = document.getElementById('presentationHint');
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
@@ -85,8 +86,8 @@ const mobileQuery = window.matchMedia('(max-width: 760px)');
 let musicAvailable = true;
 let musicStarted = false;
 let videoObserver = null;
-const videoObjectUrls = new Map();
-const videoLoadPromises = new Map();
+const characterVideos = new Map();
+const videoWarmupPromises = new Map();
 let deckPreloadPromise = null;
 let isEnteringDeck = false;
 
@@ -163,10 +164,6 @@ function mobileCounterLabel(slide, index, deck) {
   return slide.counter || `${pad(index + 1)} / ${deck.length}`;
 }
 
-function cachedVideoSrc(src) {
-  return videoObjectUrls.get(src) || src;
-}
-
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -197,7 +194,6 @@ function collectPreloadAssets() {
   [...slides, ...mobileSlides].forEach(slide => {
     if (slide.image) assets.add(slide.image);
     if (slide.video?.poster) assets.add(slide.video.poster);
-    if (slide.video?.src) assets.add(slide.video.src);
   });
 
   assets.add('assets/audio/soundtrack.mp3');
@@ -242,8 +238,7 @@ async function preloadAsset(url) {
   }
 
   if (/\.(mp4|webm)$/i.test(url)) {
-    if (/\.mp4$/i.test(url)) await cacheVideoOnce(url);
-    else await preloadFetch(url);
+    await preloadFetch(url);
     return;
   }
 
@@ -325,62 +320,98 @@ async function enterDeck() {
   document.body.classList.remove('is-loading');
   document.body.classList.add('is-deck');
   startBtn?.removeAttribute('disabled');
+  warmCharacterVideosSequentially();
   updateUi(true);
   setTimeout(() => presentationHint?.classList.add('is-soft-hidden'), 4200);
 }
 
-async function cacheVideoOnce(src) {
-  if (!src || videoObjectUrls.has(src)) return videoObjectUrls.get(src) || src;
-  if (videoLoadPromises.has(src)) return videoLoadPromises.get(src);
+function getVideoPoster(src) {
+  const slide = [...slides, ...mobileSlides].find(item => item.video?.src === src);
+  return slide?.video?.poster || '';
+}
 
-  const promise = fetch(src, { cache: 'force-cache' })
-    .then(response => {
-      if (!response.ok) throw new Error(`Video preload failed: ${response.status}`);
-      return response.blob();
-    })
-    .then(blob => {
-      const objectUrl = URL.createObjectURL(blob);
-      videoObjectUrls.set(src, objectUrl);
+function getCharacterVideo(src) {
+  if (characterVideos.has(src)) return characterVideos.get(src);
 
-      document.querySelectorAll('video[data-video-src]').forEach(video => {
-        if (video.dataset.videoSrc !== src || video.src === objectUrl) return;
-        const wasPlaying = !video.paused;
-        const currentTime = Number.isFinite(video.currentTime) ? video.currentTime : 0;
-        video.src = objectUrl;
-        video.load();
-        if (currentTime > 0) {
-          video.addEventListener('loadedmetadata', () => {
-            try { video.currentTime = Math.min(currentTime, Math.max(0, video.duration - 0.05)); } catch (_) {}
-          }, { once: true });
-        }
-        if (wasPlaying) {
-          const play = video.play();
-          if (play && typeof play.catch === 'function') play.catch(() => {});
-        }
-      });
-      return objectUrl;
-    })
-    .catch(() => src)
-    .finally(() => videoLoadPromises.delete(src));
+  const video = document.createElement('video');
+  video.src = src;
+  video.poster = getVideoPoster(src);
+  video.muted = true;
+  video.defaultMuted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.preload = 'auto';
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('disablepictureinpicture', '');
+  video.setAttribute('disableremoteplayback', '');
+  video.dataset.videoSrc = src;
+  video.load();
+  videoWarmupShelf?.appendChild(video);
 
-  videoLoadPromises.set(src, promise);
+  characterVideos.set(src, video);
+  return video;
+}
+
+function warmCharacterVideo(src) {
+  if (!src) return Promise.resolve();
+  if (videoWarmupPromises.has(src)) return videoWarmupPromises.get(src);
+
+  const video = getCharacterVideo(src);
+  const promise = new Promise(resolve => {
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      resolve(video);
+      return;
+    }
+
+    const finish = () => {
+      cleanup();
+      try { video.currentTime = 0; } catch (_) {}
+      video.pause();
+      resolve(video);
+    };
+    const cleanup = () => {
+      video.removeEventListener('loadeddata', finish);
+      video.removeEventListener('canplay', finish);
+      video.removeEventListener('error', finish);
+    };
+
+    video.addEventListener('loadeddata', finish, { once: true });
+    video.addEventListener('canplay', finish, { once: true });
+    video.addEventListener('error', finish, { once: true });
+  });
+
+  videoWarmupPromises.set(src, promise);
   return promise;
 }
 
-function primeVideoCache() {
-  const sources = [...new Set([...slides, ...mobileSlides].map(s => s.video?.src).filter(Boolean))];
-  sources.forEach(src => cacheVideoOnce(src));
+function characterVideoSources() {
+  return [...new Set([...slides, ...mobileSlides].map(s => s.video?.src).filter(Boolean))];
 }
 
-function scheduleVideoCacheWarmup() {
-  const run = () => primeVideoCache();
-  if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1200 });
-  else setTimeout(run, 250);
+function warmCharacterVideosSequentially() {
+  const sources = [
+    'assets/video/sonya-loop.mp4',
+    'assets/video/chudik-loop.mp4',
+    'assets/video/mama-loop.mp4'
+  ].filter(src => characterVideoSources().includes(src));
+
+  sources.reduce((chain, src) => (
+    chain.then(() => warmCharacterVideo(src).catch(() => {}))
+  ), Promise.resolve());
+}
+
+function parkDetachedCharacterVideos() {
+  if (!videoWarmupShelf) return;
+  characterVideos.forEach(video => {
+    if (!video.isConnected) videoWarmupShelf.appendChild(video);
+  });
 }
 
 function desktopSlideMarkup(slide, index) {
   const video = slide.video
-    ? `<video class="slide-video-overlay is-active scroll-video" src="${cachedVideoSrc(slide.video.src)}" data-video-src="${slide.video.src}" poster="${slide.video.poster || slide.image}" muted loop playsinline preload="auto" aria-hidden="true"></video>`
+    ? `<div class="video-slot slide-video-overlay is-active scroll-video" data-video-src="${slide.video.src}" data-video-mode="desktop" aria-hidden="true"></div>`
     : '';
 
   return `
@@ -397,7 +428,7 @@ function desktopSlideMarkup(slide, index) {
 function mobileSlideMarkup(slide, index, deck) {
   const counterLabel = mobileCounterLabel(slide, index, deck);
   const mediaMarkup = slide.video
-    ? `<video class="mobile-frame-image mobile-frame-video scroll-video" src="${cachedVideoSrc(slide.video.src)}" data-video-src="${slide.video.src}" poster="${slide.video.poster || slide.image}" muted loop playsinline preload="auto"></video>`
+    ? `<div class="video-slot mobile-frame-image mobile-frame-video scroll-video" data-video-src="${slide.video.src}" data-video-mode="mobile"></div>`
     : `<img class="mobile-frame-image" src="${slide.image}" alt="${escapeHtml(counterLabel)} · ${escapeHtml(slide.title)}" draggable="false" loading="${index < 2 ? 'eager' : 'lazy'}" decoding="async" />`;
 
   return `
@@ -411,6 +442,22 @@ function mobileSlideMarkup(slide, index, deck) {
         </div>
       </article>
     </section>`;
+}
+
+function hydrateVideoSlots() {
+  scrollTrack.querySelectorAll('.video-slot[data-video-src]').forEach(slot => {
+    const src = slot.dataset.videoSrc;
+    const mode = slot.dataset.videoMode;
+    const video = getCharacterVideo(src);
+
+    video.className = mode === 'mobile'
+      ? 'mobile-frame-image mobile-frame-video scroll-video'
+      : 'slide-video-overlay is-active scroll-video';
+    video.setAttribute('aria-hidden', mode === 'desktop' ? 'true' : 'false');
+
+    slot.replaceWith(video);
+  });
+  parkDetachedCharacterVideos();
 }
 
 function buildScrollFeed(preserveSource = null) {
@@ -441,6 +488,7 @@ function buildScrollFeed(preserveSource = null) {
   }
 
   lastMode = mode;
+  hydrateVideoSlots();
   buildMenu();
   setupVideoObserver();
   updateUi(false);
@@ -451,6 +499,7 @@ function renderMobileCurrent() {
   const deck = mobileSlides;
   current = Math.max(0, Math.min(current, deck.length - 1));
   scrollTrack.innerHTML = mobileSlideMarkup(deck[current], current, deck);
+  hydrateVideoSlots();
   setupVideoObserver();
   updateUi(true);
 }
@@ -461,7 +510,7 @@ function getSections() {
 
 function setupVideoObserver() {
   videoObserver?.disconnect();
-  const videos = Array.from(scrollTrack.querySelectorAll('.scroll-video'));
+  const videos = Array.from(scrollTrack.querySelectorAll('video.scroll-video'));
   if (!videos.length) return;
 
   videoObserver = new IntersectionObserver((entries) => {
@@ -641,7 +690,7 @@ if (params.has('present')) {
   document.body.classList.add('is-deck');
   buildScrollFeed();
   applyHashPosition('auto');
-  scheduleVideoCacheWarmup();
+  warmCharacterVideosSequentially();
 } else {
   document.body.classList.add('intro-open');
 }
